@@ -10,5 +10,5 @@ import org.springframework.data.repository.Repository;
  * @author @rotnroll666
  */
 public interface UserRepository extends Repository<UserEntity, Integer> {
-	Optional<UserEntity> findOneByName(String name);
+	Optional<UserEntity> findOneByLogin(String login);
 }

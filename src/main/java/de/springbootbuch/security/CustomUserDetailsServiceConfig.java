@@ -1,10 +1,9 @@
 package de.springbootbuch.security;
 
-import static java.util.Arrays.asList;
+import java.util.ArrayList;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,13 +23,12 @@ public class CustomUserDetailsServiceConfig {
 		final UserRepository userRepository
 	) {
 		return username -> userRepository
-			.findOneByName(username)
+			.findOneByLogin(username)
 			.map(entity -> new User(
-				entity.getName(),
+				entity.getLogin(),
 				entity.getHashedPassword(), 
-				asList(new 
-					SimpleGrantedAuthority("ROLE_USER"))
-				))
+				// Ihre Rollen hier
+				new ArrayList<>()))
 			.orElseThrow(() -> 
 				new UsernameNotFoundException(username)
 			);
