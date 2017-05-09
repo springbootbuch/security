@@ -28,6 +28,8 @@ public class UserEntity implements Serializable {
 
 	@Column(name = "hashed_password")
 	private String hashedPassword;
+	
+	private String salt;
 
 	public String getLogin() {
 		return login;
@@ -43,5 +45,13 @@ public class UserEntity implements Serializable {
 
 	public void setHashedPassword(String hashedPassword) {
 		this.hashedPassword = hashedPassword;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 }
