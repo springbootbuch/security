@@ -1,0 +1,1 @@
+insert into users(name, hashed_password) values('Michael', 'test');
