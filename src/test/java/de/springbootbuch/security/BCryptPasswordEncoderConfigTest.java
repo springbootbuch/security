@@ -23,6 +23,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * Part of springbootbuch.de.
+ *
+ * @author Michael J. Simons
+ * @author @rotnroll666
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles({
