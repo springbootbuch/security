@@ -1,0 +1,1 @@
+insert into users(login, hashed_password) values('Michael', '$2a$06$wCQKuapy2XKPOeNV7kDBsOVBStUvYtepzBYvVCm9zfQYWlt56HLCm');

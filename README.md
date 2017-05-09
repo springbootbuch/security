@@ -8,5 +8,12 @@ Use custom `UserDetailsService` with plain passwords.
 
 ```
 ./mvnw spring-boot:run  -Drun.profiles=custom-userdetailsservice
+curl -u Michael:test http://localhost:8080/api/greeting
 ```
 
+Use custom `UserDetailsService` with bcrypt passwords.
+
+```
+./mvnw spring-boot:run -Drun.profiles=custom-userdetailsservice,use-bcrypt-password-hash
+curl -u Michael:bcrypted http://localhost:8080/api/greeting
+```
