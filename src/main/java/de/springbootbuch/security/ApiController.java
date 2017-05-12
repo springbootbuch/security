@@ -2,6 +2,7 @@ package de.springbootbuch.security;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,10 @@ public class ApiController {
 		final Principal principal) 
 	{		
 		return String.format(
-			"Hello, %s.", principal.getName());
+			"Hello, %s.", 
+			Optional.ofNullable(principal)
+				.map(Principal::getName)
+				.orElse("Anonymous"));
 	}
 	
 	@GetMapping("/adminGreeting")

@@ -5,10 +5,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
@@ -20,20 +22,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest
 @MockBean({GreetingService.class, UserRepository.class})
-public class ApiControllerTest {
+@ActiveProfiles({"custom-http-security"})
+@Import(CustomHttpSecurityConfig.class)
+public class CustomHttpSecurityConfigTest {
 
 	@Autowired
 	private MockMvc mvc;
-		
+
 	@Test
-	public void getGreetingShouldWork() 
-		throws Exception 
-	{
+	public void publicApiShouldBeAccessible() throws Exception {
 		mvc.perform(
-				get("/api/greeting")
-					.with(user("Tester")))
+				get("/api/greeting"))
 			.andExpect(
-				content().string("Hello, Tester.")
+				content().string("Hello, Anonymous.")
+			);
+	}
+
+	@Test
+	public void privateApiShouldBeProtected() throws Exception {
+		mvc.perform(
+				get("/api/admin/user"))
+			.andExpect(
+				MockMvcResultMatchers.status().isUnauthorized()
 			);
 	}
 }

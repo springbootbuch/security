@@ -23,7 +23,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Profile("use-sha256-password-hash")
 @Configuration
 public class ShaPasswordEncoderConfig 
-	extends WebSecurityConfigurerAdapter {
+	extends WebSecurityConfigurerAdapter 
+{
 
 	/**
 	 * Needed to store a salt in a UserDetails impl
