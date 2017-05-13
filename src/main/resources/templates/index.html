@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:lang="${#locale.language}">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8" />
@@ -7,5 +9,8 @@
     </head>
     <body>
         <div>This is just a placeholder.</div>
+        <form method="POST" th:action="@{/logout}">
+            <button type="submit">Logout</button>
+        </form>
     </body>
 </html>
