@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io/api/java,netbeans,maven,gradle
 
+/application-oauth-sso.properties
+
 ### NetBeans ###
 nbproject/private/
 build/
