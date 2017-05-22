@@ -8,9 +8,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
-        <div>This is just a placeholder.</div>
-        <form method="POST" th:action="@{/logout}">
-            <button type="submit">Logout</button>
-        </form>
+        <div>Page that demonstrates Thymeleaf / Spring Security Integration</div>
+        <div sec:authorize="isAuthenticated()">
+            Logged in as: <span sec:authentication="name">Bob</span>
+            <form method="POST" th:action="@{/logout}">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a href="/login">Login</a>
+        </div>
     </body>
 </html>
