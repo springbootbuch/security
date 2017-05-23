@@ -25,7 +25,7 @@ public class OAuthAuthorizationServerConfig {
 	class AuthorizationServerConfig {
 	}
 
-	@Profile("custom-clients1")
+	@Profile("custom-auth-server")
 	@Configuration
 	@EnableAuthorizationServer
 	class AuthorizationServerConfigAlt extends 
