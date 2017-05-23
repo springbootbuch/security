@@ -31,3 +31,9 @@ Login via Google OAuth 2 (Please register an App via [Googles API Manager](https
 ```
 ./mvnw spring-boot:run -Drun.profiles=oauth-sso
 ```
+
+Provide OAuth  Authorization and Resource Server
+
+```
+./mvnw spring-boot:run -Drun.profiles=oauth
+```
