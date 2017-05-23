@@ -32,7 +32,7 @@ import org.springframework.util.MultiValueMap;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles({
 	"oauth",
-	"custom-clients1"
+	"custom-auth-server"
 })
 public class OAuthConfigCustomClientsTest {
 @Autowired
