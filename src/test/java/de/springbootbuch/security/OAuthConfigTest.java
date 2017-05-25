@@ -34,7 +34,7 @@ import org.springframework.util.MultiValueMap;
 	"oauth"
 })
 public class OAuthConfigTest {
-@Autowired
+	@Autowired
 	TestRestTemplate restTemplate;
 
 	@Test
