@@ -16,36 +16,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
-	
+
 	private final GreetingService greetingService;
 
 	public ApiController(GreetingService greetingService) {
 		this.greetingService = greetingService;
 	}
-	
+
 	@GetMapping("/greeting")
 	public String getGreeting(
-		final Principal principal) 
-	{		
+		final Principal principal)
+	{
 		return String.format(
-			"Hello, %s.", 
+			"Hello, %s.",
 			Optional.ofNullable(principal)
 				.map(Principal::getName)
 				.orElse("Anonymous"));
 	}
-	
+
 	@GetMapping("/adminGreeting")
 	public String getAdminGreeting() {
 		return greetingService
 			.adminGreeting();
 	}
-	
+
 	@GetMapping("/superAdminGreeting")
 	public String getSuperAdminGreeting() {
 		return greetingService
 			.superAdminGreeting();
 	}
-	
+
 	@GetMapping("/greetings")
 	public List<String> getGreetings() {
 		return greetingService
