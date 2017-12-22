@@ -30,7 +30,8 @@ public class OAuthUserDetailsConfig {
 		InMemoryUserDetailsManager manager = 
 				new InMemoryUserDetailsManager();
 		manager.createUser(
-				User.withUsername("user")
+				User.withDefaultPasswordEncoder()
+					.username("user")
 					.password("pwd")
 					.roles("USER")
 					.build());
