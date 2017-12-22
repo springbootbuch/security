@@ -37,3 +37,13 @@ Provide OAuth  Authorization and Resource Server
 ```
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=oauth
 ```
+
+## A word about OAuth
+
+This example project was created during the work on [Spring Boot Buch](https://springbootbuch.de). It started with Spring Security 4 and is now on 5. 
+
+While Spring Boot 1 had a managed version of the OAuth module, Spring Boot 2 doesnt and probably doesn't need it in the future as Spring Security 5 will have that stuff somewhen in its core.
+
+In the meantime there's a project called [OAuth2 Autoconfig](https://docs.spring.io/spring-security-oauth2-boot/docs/current-SNAPSHOT/reference/htmlsingle/) for smoothing a migration.
+
+It's used in this example.
