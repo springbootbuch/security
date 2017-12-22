@@ -50,12 +50,12 @@ public class OAuthAuthorizationServerConfig {
 			clients.inMemory()
 				.withClient("springboot")
 					.authorizedGrantTypes("password")
-					.secret("buch")
+					.secret("{noop}buch")
 					.scopes("all")
 				.and()
 				.withClient("leser")
 					.authorizedGrantTypes("password")
-					.secret("leser")
+					.secret("{noop}leser")
 					.scopes("read");
 		}
 	}
