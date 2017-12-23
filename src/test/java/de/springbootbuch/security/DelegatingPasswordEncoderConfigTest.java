@@ -41,7 +41,8 @@ public class DelegatingPasswordEncoderConfigTest {
 		final String[][] credentials = new String[][] {
 			{ "Michael", "bcrypted" },
 			{ "Insecure", "Yes,really" }, 
-			{ "Klaus", "Also insecure" },
+			{ "Klaus ohne Salz", "Also insecure" },
+			{ "Klaus mit Salz", "Also insecure" },
 			{ "Rainer", "Very secure" }
 		};
 		for(String[] tuple : credentials) {

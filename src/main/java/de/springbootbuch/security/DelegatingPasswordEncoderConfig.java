@@ -10,6 +10,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 /**
@@ -24,15 +25,32 @@ public class DelegatingPasswordEncoderConfig {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return PasswordEncoderFactories
+			.createDelegatingPasswordEncoder();
 	}
 
 	public PasswordEncoder customDelegatingEncoder() {
-		String idForEncode = "bcrypt";
-		final Map<String, PasswordEncoder> encoders = new HashMap<>();
-		encoders.put(idForEncode, new BCryptPasswordEncoder());
-		encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
-		encoders.put("scrypt", new SCryptPasswordEncoder());
-		return new DelegatingPasswordEncoder(idForEncode, encoders);
+		final String idForEncode = "pbkdf2";		
+		final Pbkdf2PasswordEncoder defaultEncoder 
+			= new Pbkdf2PasswordEncoder();
+		
+		final Map<String, PasswordEncoder> encoders 
+			= new HashMap<>();
+		encoders.put(
+			idForEncode, defaultEncoder);
+		encoders.put(
+			"bcrypt", new BCryptPasswordEncoder());		
+		encoders.put(
+			"scrypt", new SCryptPasswordEncoder());
+		
+		final DelegatingPasswordEncoder rv =
+			new DelegatingPasswordEncoder(idForEncode, encoders);
+		rv.setDefaultPasswordEncoderForMatches(
+			defaultEncoder);
+		return rv;
+	}
+	
+	public PasswordEncoder fixedPasswordEncoder() {		
+		return new StandardPasswordEncoder();
 	}
 }
