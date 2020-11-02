@@ -1,15 +1,14 @@
 package de.springbootbuch.security;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.*;
+
 import java.util.Base64;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -28,7 +27,7 @@ import org.springframework.util.MultiValueMap;
  * @author Michael J. Simons
  * @author @rotnroll666
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles({
 	"oauth",
@@ -51,10 +50,10 @@ public class OAuthConfigCustomClientsTest {
 
 		final ResponseEntity<OAuth2AccessToken> r = restTemplate
 			.exchange("/oauth/token", HttpMethod.POST, new HttpEntity<>(map, headers), OAuth2AccessToken.class);
-		assertThat(r.getStatusCode(), is(equalTo(HttpStatus.OK)));
+		assertThat(r.getStatusCode()).isEqualTo(HttpStatus.OK);
 
 		final OAuth2AccessToken accessToken = r.getBody();
-		assertThat(accessToken.getTokenType(), is(equalTo("bearer")));
-		assertThat(accessToken.getScope(), contains("read"));
+		assertThat(accessToken.getTokenType()).isEqualTo("bearer");
+		assertThat(accessToken.getScope()).contains("read");
 	}
 }

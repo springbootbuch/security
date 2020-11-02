@@ -1,14 +1,14 @@
 package de.springbootbuch.security;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.*;
+
 import java.util.Base64;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +16,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Part of springbootbuch.de.
@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Michael J. Simons
  * @author @rotnroll666
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles({
 	"custom-userdetailsservice",
@@ -42,7 +42,7 @@ public class BCryptPasswordEncoderConfigTest {
 
 		final ResponseEntity<String> r = restTemplate
 			.exchange("/api/greeting", HttpMethod.GET, new HttpEntity<>(headers), String.class);
-		assertThat(r.getStatusCode(), is(equalTo(HttpStatus.OK)));
-		assertThat(r.getBody(), is(equalTo("Hello, Michael.")));
+		assertThat(r.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(r.getBody()).isEqualTo("Hello, Michael.");
 	}
 }

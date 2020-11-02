@@ -1,21 +1,16 @@
 package de.springbootbuch.security;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.*;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.contains;
-import static org.junit.Assert.assertThat;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import static org.junit.rules.ExpectedException.none;
-import org.junit.runner.RunWith;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Part of springbootbuch.de.
@@ -23,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Michael J. Simons
  * @author @rotnroll666
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = NONE)
 @WithMockUser(
 	username = "test", 
@@ -33,28 +28,23 @@ public class GreetingServiceTest {
 
 	@Autowired
 	private GreetingService greetingService;
-	
-	@Rule
-	public ExpectedException expectedException 
-		= none();
 
 	@Test
 	public void secretGreetingShouldBeProtected() {
-		expectedException
-			.expect(AccessDeniedException.class);
-		greetingService.superAdminGreeting();
+		assertThatExceptionOfType(AccessDeniedException.class)
+			.isThrownBy(() -> greetingService.superAdminGreeting());
 	}
 	
 	@Test
 	@WithMockUser(username = "Reader")
 	public void filteredGreetingsShouldWork() {
-		assertThat(
-			greetingService.greetings(), 
-			contains("Hello, Reader."));
+		Assertions.assertThat(
+			greetingService.greetings())
+			.contains("Hello, Reader.");
 	}
 	
 	@Test
 	public void adminGreetingShouldBeAccessible() {
-		assertThat(greetingService.adminGreeting(), is(equalTo("Hello, Admin!")));
+		assertThat(greetingService.adminGreeting()).isEqualTo("Hello, Admin!");
 	}
 }
